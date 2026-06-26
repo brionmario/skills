@@ -66,7 +66,7 @@ Present the results as options plus a "No milestone" option.
 ### Title format
 
 ```
-[UMBRELLA ☂️] <Suite Name> – <Subtitle>
+[UMBRELLA ☂️] ThunderID <Suite Name> – <Subtitle>
 ```
 
 ### Body template
@@ -142,7 +142,7 @@ None (umbrella issues are roadmap-level; do not set a milestone unless the user 
 ### Title format
 
 ```
-Thunder <Ecosystem> SDKs
+ThunderID <Ecosystem> SDKs
 ```
 
 ### Body template
@@ -204,7 +204,7 @@ None unless the user specifies one.
 ### Title format
 
 ```
-Thunder <SDK Name> SDK (<package-name>)
+ThunderID <SDK Name> SDK (<package-name>)
 ```
 
 ### Body template
@@ -278,7 +278,7 @@ Use when ThunderID will submit a PR to the host package's repository. No `@thund
 - **Host repo** — the upstream repository (e.g., `better-auth/better-auth`)
 - **Problem** — what friction developers face today
 - **Why now** — adoption argument
-- **Parent umbrella issue number** — default `#1895`
+- **Parent ecosystem issue number** — the ecosystem issue this integration belongs to (e.g., Auth.js → JavaScript ecosystem #2543). Look up the right issue if unsure: `gh issue list --repo thunder-id/thunderid --label "Developer Experience" --search "SDKs" --json number,title`
 - **Milestone** — fetch and present open milestones via `AskUserQuestion`
 
 Do **not** ask about or mention the internal provider interface or implementation contract — keep the issue at the product/DX level.
@@ -286,12 +286,12 @@ Do **not** ask about or mention the internal provider interface or implementatio
 #### Title format
 
 ```
-Thunder <Integration Name> Provider/Strategy/Plugin
+Integration: Contribute ThunderID as a <descriptor> <Framework> <provider/strategy/plugin>
 ```
 
-No package name in the title — there is no `@thunderid/*` release.
+Examples: `Integration: Contribute ThunderID as a built-in Auth.js provider`, `Integration: Contribute ThunderID strategy to Passport.js`.
 
-Use "Provider" for OAuth/OIDC provider frameworks (Auth.js, NuxtAuth, Better Auth), "Strategy" for Passport-style frameworks, "Plugin" for platform plugins (Backstage).
+Use "provider" for OAuth/OIDC provider frameworks (Auth.js, NuxtAuth, Better Auth), "strategy" for Passport-style frameworks, "plugin" for platform plugins (Backstage).
 
 #### Body template
 
@@ -340,13 +340,13 @@ Use when ThunderID ships and owns the integration as `@thunderid/integration-<na
 - **Problem** — what friction developers face today
 - **Why now** — adoption argument
 - **Proposed solution** — high-level description; no implementation details
-- **Parent umbrella issue number** — default `#1895`
+- **Parent ecosystem issue number** — the ecosystem issue this integration belongs to (same lookup as Type 4a)
 - **Milestone** — fetch and present open milestones via `AskUserQuestion`
 
 #### Title format
 
 ```
-Thunder <Integration Name> Provider/Strategy/Plugin (<package-name>)
+Integration: Contribute ThunderID as a <descriptor> <Framework> <provider/strategy/plugin> (<package-name>)
 ```
 
 #### Body template
