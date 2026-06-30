@@ -1,6 +1,6 @@
 ---
-name: integrate-react
-description: Add ThunderID authentication to a React application using the official @thunderid/react SDK. Use when asked to "integrate ThunderID into React", "add auth to my React app", or "connect ThunderID with React". For React Router or TanStack Router projects, prefer /integrate-react-router or /integrate-tanstack-router.
+name: thunderid-integrate-react
+description: Add ThunderID authentication to a React application using the official @thunderid/react SDK. Use when asked to "integrate ThunderID into React", "add auth to my React app", or "connect ThunderID with React".
 license: Apache-2.0
 allowed-tools: Bash(npm:*), Bash(npx:*), Bash(pnpm:*), Bash(yarn:*), Bash(bun:*), Read, Write, Edit
 metadata:
@@ -10,7 +10,7 @@ metadata:
 
 # ThunderID — React Integration
 
-Assumes ThunderID is running at `https://localhost:8090`. If not, run `/setup-thunderid` first.
+Assumes ThunderID is running at `https://localhost:8090`. If not, run `/install` first.
 
 ## Step 1 — Register an Application
 
@@ -46,7 +46,11 @@ curl -kL -X POST https://localhost:8090/applications \
   }'
 ```
 
-## Step 2 — Install
+## Step 2 — Get Your Client ID
+
+Open the ThunderID console at `https://localhost:8090/console`, navigate to **Applications → your app**, and copy the **Client ID**.
+
+## Step 3 — Install
 
 Detect the package manager from lockfiles: `pnpm-lock.yaml` → `pnpm add`, `yarn.lock` → `yarn add`, `bun.lockb` → `bun add`, else `npm install`.
 
@@ -54,9 +58,9 @@ Detect the package manager from lockfiles: `pnpm-lock.yaml` → `pnpm add`, `yar
 npm install @thunderid/react
 ```
 
-## Step 3 — Wrap with Provider
+## Step 4 — Wrap with Provider
 
-Edit `src/main.jsx` (or `src/main.tsx`):
+Edit `src/main.jsx` (or `src/main.tsx`), replacing `<your-client-id>` with the Client ID you copied:
 
 ```jsx
 import { StrictMode } from 'react'
@@ -77,22 +81,53 @@ createRoot(document.getElementById('root')).render(
 )
 ```
 
-## Step 4 — Add Auth UI
+## Step 5 — Add Auth UI
 
 ```jsx
 import {
-  SignedIn, SignedOut, SignInButton, SignOutButton, Loading, User,
+  SignedIn, SignedOut,
+  SignInButton, SignOutButton, Loading,
+} from '@thunderid/react'
+
+function App() {
+  return (
+    <>
+      <Loading>
+        <div>Loading authentication...</div>
+      </Loading>
+      <SignedOut>
+        <SignInButton>Sign In</SignInButton>
+      </SignedOut>
+      <SignedIn>
+        <SignOutButton>Sign Out</SignOutButton>
+      </SignedIn>
+    </>
+  )
+}
+```
+
+## Step 6 — Display User Profile
+
+```jsx
+import {
+  SignedIn, SignedOut,
+  SignInButton, SignOutButton, Loading, User,
 } from '@thunderid/react'
 
 function App() {
   return (
     <>
       <Loading><div>Loading...</div></Loading>
-      <SignedIn><SignOutButton>Sign Out</SignOutButton></SignedIn>
       <SignedOut><SignInButton>Sign In</SignInButton></SignedOut>
       <SignedIn>
+        <SignOutButton>Sign Out</SignOutButton>
         <User>
-          {(user) => user && <p>Welcome, {user.name || user.username}!</p>}
+          {(user) => user && (
+            <div>
+              <h2>Welcome, {user.name}!</h2>
+              <p>{user.email}</p>
+            </div>
+          )}
         </User>
       </SignedIn>
     </>
@@ -100,7 +135,7 @@ function App() {
 }
 ```
 
-## Step 5 — Run and Verify
+## Step 7 — Run and Verify
 
 ```bash
 npm run dev

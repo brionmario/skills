@@ -1,5 +1,5 @@
 ---
-name: integrate-nuxt
+name: thunderid-integrate-nuxt
 description: Add ThunderID authentication to a Nuxt application using the official @thunderid/nuxt module. Use when asked to "integrate ThunderID into Nuxt", "add auth to my Nuxt app", or "connect ThunderID with Nuxt".
 license: Apache-2.0
 allowed-tools: Bash(npm:*), Bash(npx:*), Bash(pnpm:*), Bash(yarn:*), Bash(bun:*), Read, Write, Edit
@@ -10,7 +10,7 @@ metadata:
 
 # ThunderID — Nuxt Integration
 
-Assumes ThunderID is running at `https://localhost:8090`. If not, run `/setup-thunderid` first.
+Assumes ThunderID is running at `https://localhost:8090`. If not, run `/install` first.
 
 ## Step 1 — Register an Application
 
@@ -98,24 +98,19 @@ All components and composables are auto-imported. Create `pages/index.vue`:
 ```vue
 <template>
   <main>
-    <header>
-      <h1>ThunderID Auth Demo</h1>
-      <SignedIn>
-        <SignOutButton>Sign Out</SignOutButton>
-      </SignedIn>
-      <SignedOut>
-        <SignInButton>Sign In</SignInButton>
-      </SignedOut>
-    </header>
-    <section>
-      <SignedIn>
-        <User>
-          <template #default="{ user }">
-            <p>Welcome, {{ user.name || user.username }}!</p>
-          </template>
-        </User>
-      </SignedIn>
-    </section>
+    <SignedIn>
+      <SignOutButton>Sign Out</SignOutButton>
+    </SignedIn>
+    <SignedOut>
+      <SignInButton>Sign In</SignInButton>
+    </SignedOut>
+    <SignedIn>
+      <User>
+        <template #default="{ user }">
+          <p>Welcome, {{ user.name || user.username }}!</p>
+        </template>
+      </User>
+    </SignedIn>
   </main>
 </template>
 ```

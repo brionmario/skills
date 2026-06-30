@@ -1,5 +1,5 @@
 ---
-name: integrate-vue
+name: thunderid-integrate-vue
 description: Add ThunderID authentication to a Vue application using the official @thunderid/vue SDK. Use when asked to "integrate ThunderID into Vue", "add auth to my Vue app", or "connect ThunderID with Vue".
 license: Apache-2.0
 allowed-tools: Bash(npm:*), Bash(npx:*), Bash(pnpm:*), Bash(yarn:*), Bash(bun:*), Read, Write, Edit
@@ -10,7 +10,7 @@ metadata:
 
 # ThunderID — Vue Integration
 
-Assumes ThunderID is running at `https://localhost:8090`. If not, run `/setup-thunderid` first.
+Assumes ThunderID is running at `https://localhost:8090`. If not, run `/install` first.
 
 ## Step 1 — Register an Application
 
@@ -54,9 +54,9 @@ Detect the package manager from lockfiles: `pnpm-lock.yaml` → `pnpm add`, `yar
 npm install @thunderid/vue
 ```
 
-## Step 3 — Register Plugin and Wrap with Provider
+## Step 3 — Register the Plugin
 
-**`src/main.js`**
+Edit `src/main.js`:
 
 ```js
 import { createApp } from 'vue'
@@ -69,17 +69,36 @@ app.use(ThunderIDPlugin)
 app.mount('#app')
 ```
 
-**`src/App.vue`**
+## Step 4 — Add ThunderIDProvider
+
+Edit `src/App.vue`, replacing `<your-client-id>` with the Client ID you copied:
 
 ```vue
+<script setup>
+import {
+  SignedIn, SignedOut,
+  SignInButton, SignOutButton,
+} from '@thunderid/vue'
+</script>
+
 <template>
-  <ThunderIDProvider client-id="<your-client-id>" base-url="https://localhost:8090">
-    <RouterView />
+  <ThunderIDProvider
+    client-id="<your-client-id>"
+    base-url="https://localhost:8090"
+  >
+    <SignedIn>
+      <SignOutButton>Sign Out</SignOutButton>
+    </SignedIn>
+    <SignedOut>
+      <SignInButton>Sign In</SignInButton>
+    </SignedOut>
   </ThunderIDProvider>
 </template>
 ```
 
-## Step 4 — Add Auth UI
+## Step 5 — Add Auth UI
+
+To show a user profile, add the `User` component to any view:
 
 ```vue
 <script setup>
@@ -100,7 +119,7 @@ import { SignedIn, SignedOut, SignInButton, SignOutButton, Loading, User } from 
 </template>
 ```
 
-## Step 5 — Run and Verify
+## Step 6 — Run and Verify
 
 ```bash
 npm run dev

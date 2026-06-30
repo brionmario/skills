@@ -1,5 +1,5 @@
 ---
-name: setup-thunderid
+name: thunderid-install
 description: Install and start the ThunderID server. Use when asked to "set up ThunderID", "install ThunderID", "run ThunderID", or "start ThunderID server".
 license: Apache-2.0
 allowed-tools: Bash(npm:*), Bash(npx:*), Bash(curl:*), Bash(docker:*)

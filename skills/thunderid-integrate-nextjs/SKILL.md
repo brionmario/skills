@@ -1,5 +1,5 @@
 ---
-name: integrate-nextjs
+name: thunderid-integrate-nextjs
 description: Add ThunderID authentication to a Next.js application using the official @thunderid/nextjs SDK. Use when asked to "integrate ThunderID into Next.js", "add auth to my Next.js app", or "connect ThunderID with Next.js".
 license: Apache-2.0
 allowed-tools: Bash(npm:*), Bash(npx:*), Bash(pnpm:*), Bash(yarn:*), Bash(bun:*), Read, Write, Edit
@@ -10,7 +10,7 @@ metadata:
 
 # ThunderID — Next.js Integration
 
-Assumes ThunderID is running at `https://localhost:8090`. If not, run `/setup-thunderid` first.
+Assumes ThunderID is running at `https://localhost:8090`. If not, run `/install` first.
 
 ## Step 1 — Register an Application
 
@@ -63,6 +63,8 @@ NEXT_PUBLIC_THUNDERID_BASE_URL=https://localhost:8090
 NEXT_PUBLIC_THUNDERID_CLIENT_ID=<your-client-id>
 THUNDERID_CLIENT_SECRET=<your-client-secret>
 THUNDERID_SECRET=<a-random-secret-for-session-signing>
+# Remove in production:
+NODE_TLS_REJECT_UNAUTHORIZED=0
 ```
 
 Generate `THUNDERID_SECRET` with `openssl rand -base64 32` (at least 32 characters).
@@ -87,26 +89,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-## Step 5 — Add Middleware for Route Protection
+## Step 5 — Add the ThunderID Proxy
 
-Create `middleware.ts` at the project root:
+Create `proxy.ts` at the project root:
 
 ```ts
 import {
-  thunderIDMiddleware,
+  thunderIDProxy,
   createRouteMatcher,
-} from '@thunderid/nextjs/middleware'
+} from '@thunderid/nextjs/server'
 
-const isProtectedRoute = createRouteMatcher(['/dashboard(.*)'])
+const isProtected = createRouteMatcher([])
 
-export default thunderIDMiddleware(async (thunderid, request) => {
-  if (isProtectedRoute(request)) {
-    await thunderid.protectRoute()
+export default thunderIDProxy(
+  async (thunderid, request) => {
+    if (isProtected(request))
+      await thunderid.protectRoute()
   }
-})
+)
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico).*)',
+  ],
 }
 ```
 
@@ -117,22 +122,19 @@ import {
   SignedIn,
   SignedOut,
   SignInButton,
-  SignOutButton,
   UserDropdown,
-} from '@thunderid/nextjs'
+} from "@thunderid/nextjs"
 
 export default function Home() {
   return (
-    <main>
-      <h1>Next.js Auth Demo</h1>
+    <section>
+      <SignedIn>
+        <UserDropdown />
+      </SignedIn>
       <SignedOut>
         <SignInButton>Sign In</SignInButton>
       </SignedOut>
-      <SignedIn>
-        <UserDropdown />
-        <SignOutButton>Sign Out</SignOutButton>
-      </SignedIn>
-    </main>
+    </section>
   )
 }
 ```
