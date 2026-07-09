@@ -4,7 +4,7 @@
 [![Codex CLI](https://img.shields.io/badge/Codex%20CLI-000000?logo=openai&logoColor=white)](https://developers.openai.com/codex)
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-open%20standard-6E56CF)](https://github.com/anthropics/skills)
 
-Brion Mario's personal collection of [Agent Skills](https://github.com/anthropics/skills) — an open, portable format for packaging procedural knowledge that any compatible coding agent can load. This repo is also a [Claude Code plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces), so the same skills install as a single plugin there, or drop straight into any other Agent-Skills-compatible tool (Codex CLI, Cursor, GitHub Copilot, Gemini CLI, and others).
+My personal collection of [Agent Skills](https://github.com/anthropics/skills) — an open, portable format for packaging procedural knowledge that any compatible coding agent can load. This repo is also a [Claude Code plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces), so the same skills install as a single plugin there, or drop straight into any other Agent-Skills-compatible tool (Codex CLI, Cursor, GitHub Copilot, Gemini CLI, and others).
 
 ## Skills
 
