@@ -1,5 +1,5 @@
 ---
-name: create-dx-task
+name:  thunderid-create-dx-task
 description: Create a Developer Experience GitHub issue for ThunderID. Use when filing a new SDK tracking issue, ecosystem SDK issue, individual SDK issue, or integration issue in the thunder-id/thunderid repo.
 allowed-tools: Bash(gh issue create *), Bash(gh issue list *), Bash(gh issue view *), Bash(gh api *), AskUserQuestion
 ---
