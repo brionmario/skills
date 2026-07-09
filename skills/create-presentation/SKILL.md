@@ -64,3 +64,5 @@ Use this skill to generate single-file HTML presentations from scripts, outlines
 - This skill should be used together with the `frontend-design` skill for refined color, typography, and layout decisions.
 - Prefer custom slide structures over generic slide templates.
 - Use the portfolio's dark background, vivid accent, and strong typography as the foundation for every deck.
+- Brion's avatar images are available in `assets/` (`brion-avatar-blue.png`, `brion-avatar-pink.png`, `brion-avatar-yello.png`). Use one when a slide (e.g. title, team, or contact slide) calls for a personal avatar/headshot.
+- Brion's profile links (blog, LinkedIn, GitHub, Medium, X, etc.) are listed in `references/links.md` — check them and ask which ones fit the deck's context when building a contact/closing slide, rather than listing all of them by default.
