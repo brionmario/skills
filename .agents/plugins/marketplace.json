@@ -1,0 +1,17 @@
+{
+  "name": "brion-skills",
+  "interface": {
+    "displayName": "Brion Skills"
+  },
+  "plugins": [
+    {
+      "name": "brion-skills",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "description": "Brion Mario's personal collection of Claude Code skills for ThunderID maintenance and general workflows.",
+      "category": "Productivity"
+    }
+  ]
+}

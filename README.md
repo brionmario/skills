@@ -30,15 +30,22 @@ claude --plugin-dir /path/to/skills
 
 ### Codex CLI
 
-Codex reads skills from `~/.codex/skills` (global) or `.agents/skills` (per-repo). Clone this repo and symlink in the ones you want:
+This repo is also a Codex plugin (`.codex-plugin/plugin.json`) with its own marketplace manifest (`.agents/plugins/marketplace.json`). Add the marketplace and install the plugin:
+
+```
+codex plugins marketplace add https://github.com/brionmario/skills.git
+codex plugins install brion-skills
+```
+
+For quick, repo-scoped skills without going through a plugin/marketplace, you can instead symlink individual skill folders straight into `.agents/skills/`:
 
 ```
 git clone https://github.com/brionmario/skills.git ~/dev/brion-skills
-mkdir -p ~/.codex/skills
-ln -s ~/dev/brion-skills/skills/*/ ~/.codex/skills/
+mkdir -p .agents/skills
+ln -s ~/dev/brion-skills/skills/*/ .agents/skills/
 ```
 
-Or, to scope a skill to a single project, symlink it into that project's `.agents/skills/` directory instead. Restart Codex if a newly linked skill doesn't show up.
+Restart Codex if a newly installed or linked skill doesn't show up.
 
 ### Other Agent Skills-compatible tools
 
@@ -48,4 +55,4 @@ Any tool that supports the [Agent Skills](https://github.com/anthropics/skills) 
 
 1. Create a folder under `skills/<skill-name>/` with a `SKILL.md` (frontmatter needs `name` and `description`).
 2. Run `claude --plugin-dir .` to test it locally in Claude Code, then `/reload-plugins` after changes.
-3. Bump the `version` in `.claude-plugin/plugin.json` before pushing a release.
+3. Bump the `version` in both `.claude-plugin/plugin.json` and `.codex-plugin/plugin.json` before pushing a release.
