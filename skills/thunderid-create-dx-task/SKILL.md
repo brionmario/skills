@@ -1,6 +1,6 @@
 ---
 name:  thunderid-create-dx-task
-description: Create a Developer Experience GitHub issue for ThunderID. Use when filing a new SDK tracking issue, ecosystem SDK issue, individual SDK issue, or integration issue in the thunder-id/thunderid repo.
+description: Create a Developer Experience GitHub issue for ThunderID. Use when filing a new SDK tracking issue, ecosystem SDK issue, individual SDK issue, integration issue, or an improvement to existing behavior in the thunder-id/thunderid repo.
 allowed-tools: Bash(gh issue create *), Bash(gh issue list *), Bash(gh issue view *), Bash(gh api *), AskUserQuestion
 ---
 
@@ -31,9 +31,13 @@ options:
     description: "An issue for a single SDK package (e.g., \"Thunder Next.js SDK (@thunderid/nextjs)\"). Label: Developer Experience."
   - label: "Integration"
     description: "An issue for a third-party auth integration (e.g., \"Thunder Auth.js Provider\"). Label: Developer Experience."
+  - label: "Improvement"
+    description: "A suggested improvement to an existing behavior or limitation (not a new SDK/feature). Uses the repo's improvement issue template. Label: Type/Improvement."
 ```
 
 Wait for the answer, then proceed to the matching type guide below.
+
+**Don't default to a feature-shaped type (Umbrella/Ecosystem SDK/Individual SDK/Integration) just because the request is about an SDK.** Those four types are for introducing something new (a whole SDK, an ecosystem, an integration). If the request describes a gap in *existing* behavior — something that already exists but works incorrectly, incompletely, or not as expected (e.g. "token should be revoked on logout", "error messages aren't localized") — that's an **Improvement**, even when it happens to affect an SDK. When it's ambiguous, ask the user rather than assuming a feature-shaped type.
 
 ---
 
@@ -392,6 +396,52 @@ Set if the user provides one.
 
 ---
 
+## Type 5 — Improvement Issue
+
+Use this when the request describes a gap in existing behavior rather than a new SDK, ecosystem, or integration. Mirrors the repo's own `improvement.yml` issue template — do not use the "What problem are we solving? / Who / Why now / Proposed Solution / Alternatives" shape for this type.
+
+### Fields to collect
+
+- **Title** — a short, plain description of the improvement (no fixed prefix format)
+- **Current Limitation** — describe the current limitation
+- **Suggested Improvement** — describe the improvement being suggested
+
+Keep both fields general and behavior-level. Do not mention specific PRs, file paths, or implementation details unless the user explicitly asks for them.
+
+### Title format
+
+```
+<Short imperative description of the improvement>
+```
+
+Example: `Revoke tokens when the user logs out`
+
+### Body template
+
+```markdown
+### Current Limitation
+
+<Describe the current limitation.>
+
+### Suggested Improvement
+
+<Describe the improvement you suggest.>
+```
+
+### Labels
+
+`Type/Improvement`
+
+### Milestone
+
+None unless the user provides one.
+
+### Parent issue
+
+Not applicable — improvement issues are standalone by default. Only add a `Parent issue: #<number>` line if the user explicitly names one.
+
+---
+
 ## Step N — Confirm before creating
 
 Show the user a preview using plain markdown (no tool call yet):
@@ -432,13 +482,13 @@ gh issue create \
   --repo thunder-id/thunderid \
   --title "<title>" \
   --body "<body>" \
-  --label "Developer Experience" \
-  --label "<additional label if any>" \
+  --label "<label from the matching type's Labels section>" \
+  --label "<second label, if the type specifies one>" \
   --assignee "<username>" \
   --milestone "<milestone title>"
 ```
 
-Omit `--assignee` if none was provided. Omit `--milestone` if none was provided. Omit `--label "<additional label if any>"` if there is no second label.
+Use exactly the labels listed under the matching type's "Labels" section above — do not add `Developer Experience` for Type 5 (Improvement), which uses `Type/Improvement` alone. Omit `--assignee` if none was provided. Omit `--milestone` if none was provided. Omit the second `--label` flag if the type specifies only one label.
 
 After creation, output the issue URL so the user can open it directly.
 
