@@ -1,6 +1,6 @@
 ---
 name:  thunderid-create-dx-task
-description: Create a Developer Experience GitHub issue for ThunderID. Use when filing a new SDK tracking issue, ecosystem SDK issue, individual SDK issue, integration issue, or an improvement to existing behavior in the thunder-id/thunderid repo.
+description: Create a Developer Experience GitHub issue for ThunderID. Use when filing a new SDK tracking issue, ecosystem SDK issue, individual SDK issue, integration issue, improvement to existing behavior, or bug report in the thunder-id/thunderid repo.
 allowed-tools: Bash(gh issue create *), Bash(gh issue list *), Bash(gh issue view *), Bash(gh api *), AskUserQuestion
 ---
 
@@ -12,6 +12,17 @@ You are creating a Developer Experience GitHub issue in the `thunder-id/thunderi
 
 - **Default assignee:** `brionmario` — use this unless the user specifies otherwise.
 - **Default parent umbrella issue:** `#1895`
+
+## References
+
+The `thunder-id/thunderid` repo defines its own issue form templates here: https://github.com/thunder-id/thunderid/tree/main/.github/ISSUE_TEMPLATE
+
+- Bug report fields come from [`bug.yml`](https://github.com/thunder-id/thunderid/blob/main/.github/ISSUE_TEMPLATE/bug.yml) — used by Type 6 below.
+- Improvement fields come from [`improvement.yml`](https://github.com/thunder-id/thunderid/blob/main/.github/ISSUE_TEMPLATE/improvement.yml) — used by Type 5 below.
+- [`feature.yml`](https://github.com/thunder-id/thunderid/blob/main/.github/ISSUE_TEMPLATE/feature.yml) informed the structure of the Ecosystem/SDK/Integration templates (Types 2-4), which use a richer product-framing body than the repo's default form.
+- [`doc-issue.yml`](https://github.com/thunder-id/thunderid/blob/main/.github/ISSUE_TEMPLATE/doc-issue.yml) covers documentation issues — not yet modeled as a type here; check it before hand-rolling a docs issue.
+
+If the repo's templates change, re-check them against the type guides below and update the field lists to match.
 
 ---
 
@@ -33,6 +44,8 @@ options:
     description: "An issue for a third-party auth integration (e.g., \"Thunder Auth.js Provider\"). Label: Developer Experience."
   - label: "Improvement"
     description: "A suggested improvement to an existing behavior or limitation (not a new SDK/feature). Uses the repo's improvement issue template. Label: Type/Improvement."
+  - label: "Bug Report"
+    description: "Something doesn't work as expected. Uses the repo's own bug.yml issue form fields (Description, Steps to Reproduce, Version, Environment). Label: Type/Bug."
 ```
 
 Wait for the answer, then proceed to the matching type guide below.
@@ -439,6 +452,53 @@ None unless the user provides one.
 ### Parent issue
 
 Not applicable — improvement issues are standalone by default. Only add a `Parent issue: #<number>` line if the user explicitly names one.
+
+---
+
+## Type 6 — Bug Report
+
+Mirrors the repo's own [`bug.yml`](https://github.com/thunder-id/thunderid/blob/main/.github/ISSUE_TEMPLATE/bug.yml) issue form — use these exact fields/headings so the issue matches what filing through the GitHub UI would produce.
+
+### Fields to collect
+
+- **Description** — clear, concise description of the problem
+- **Steps to Reproduce** — required
+- **Version** — product version or commit; required
+- **Environment Details** — OS, database, etc.; optional
+
+If the user doesn't have Steps to Reproduce or Version on hand, ask once; if they explicitly say to skip, note "Not provided" rather than inventing detail.
+
+### Title format
+
+Free-form, plain description of the bug (no prefix), e.g. `Text can't be copied from the CLI interface`.
+
+### Body template
+
+```markdown
+### Description
+
+<Clear and concise description of the problem.>
+
+### Steps to Reproduce
+
+<Steps the user followed when they encountered the issue.>
+
+### Version
+
+<Product version or commit.>
+
+### Environment Details (with versions)
+
+<OS, Database, etc. that the product is running on. "Not provided" if skipped.>
+```
+
+### Labels
+
+`Type/Bug` (add `Developer Experience` only if the bug is specifically about SDK/CLI/tooling DX, not the product itself)
+
+### Milestone
+
+None unless the user specifies one.
 
 ---
 
