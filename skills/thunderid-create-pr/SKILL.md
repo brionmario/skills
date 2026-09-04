@@ -36,6 +36,17 @@ git commit --amend -m "<plain sentence, matching repo history>"
 git push --force-with-lease
 ```
 
+**Prefer a single commit per PR/branch.** Check `git log --oneline <default-branch>..HEAD` — if there's more
+than one commit (or there are uncommitted changes on top), squash everything into one commit before pushing,
+rather than leaving a multi-commit history:
+
+```bash
+git add -A
+git reset --soft <default-branch>
+git commit -m "<plain sentence>"
+git push --force-with-lease
+```
+
 ## Step 2 — Find and use the repo's actual PR template
 
 Look for, in this priority order:
@@ -48,6 +59,15 @@ find . -maxdepth 2 -iname "pull_request_template.md"
 2. Root-level `pull_request_template.md` — fallback only.
 
 Read the template and fill in **every section it defines**, in full prose (no leftover `<placeholder>` text, no invented sections). Do not use a generic Summary/Test-plan format — that is wrong for these repos.
+
+**This is the most common way this skill goes wrong**: it's easy to default to a familiar `## Summary` /
+`## Test plan` / `## What's included` body instead of stopping to read the actual template file first. Before
+writing `--body`, always cat the template file (`.github/pull_request_template.md` etc.) in this session so
+its exact headings are in front of you, then write the body using those exact `###` headings, in that order —
+never substitute your own structure, even if it feels more natural or more complete. If you're editing an
+*existing* PR (`gh pr edit`/`gh api ... PATCH`), fetch its current body first (`gh pr view <n> --json body` or
+`gh api repos/<owner>/<repo>/pulls/<n> --jq .body`) — if it's already using a generic Summary/Test-plan format,
+that's a bug to fix, not a format to preserve; rewrite it around the template's sections.
 
 For the common ThunderID SDK template (ios/android/flutter/javascript-sdks/skills all share close variants of this), the sections are typically:
 

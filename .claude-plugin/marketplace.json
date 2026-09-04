@@ -5,6 +5,9 @@
     "name": "Brion Mario",
     "email": "brion@wso2.com"
   },
+  "metadata": {
+    "version": "1.0.0"
+  },
   "plugins": [
     {
       "name": "brion-skills",

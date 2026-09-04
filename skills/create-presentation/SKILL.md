@@ -76,3 +76,4 @@ Use this skill to generate single-file HTML presentations from scripts, outlines
 - Font files for main banners are bundled in `assets/fonts/` and listed in `references/fonts.md` (`Space Grotesk` for headings, `Fira Code` for code, `Noto Sans` for body text).
 - WSO2 logos are available in `assets/logos/` (`wso2-logo-white.png`, `wso2-logo-black.png`). Use the white version on dark backgrounds and the black version on light backgrounds, e.g. for decks about Brion's work at WSO2.
 - Social/platform icons are available in `assets/logos/` for use alongside `references/links.md`: `linkedin.svg`, `github.svg`, `x-twitter.svg`, `medium.jpeg`. Use `brionmario-memoji.png` specifically to represent Brion's portfolio/personal site link.
+- AI tool/model logos are available in `assets/logos/` for decks about AI coding tools or models: `claude.png`, `chatgpt-dark.svg`/`chatgpt-light.svg` (pick the variant matching the slide background), `codex.png`, `copilot.png`.
