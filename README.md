@@ -10,6 +10,8 @@ My personal collection of [Agent Skills](https://github.com/anthropics/skills) �
 
 - **create-presentation** — Generate single-file HTML slide presentations with Brion Mario's portfolio design language.
 - **thunderid-create-dx-task** — Create a Developer Experience GitHub issue in the `thunder-id/thunderid` repo.
+- **thunderid-create-pr** — Open a pull request in a ThunderID repo, following that repo's own commit style and PR template.
+- **web-dev** — General web development work in any frontend or full-stack codebase, with an accessibility, performance, and responsive review pass.
 
 ## Install
 
